@@ -15,16 +15,29 @@ public class StudentCourseMaterialPanel extends JPanel{
 	public StudentCourseMaterialPanel() {
 		setLayout(new BorderLayout(10, 10));
 		
-		JPanel selectionPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+		JPanel selectionPanel = new JPanel(new GridBagLayout());
 		selectionPanel.setBorder(BorderFactory.createTitledBorder("Select Course and Topic"));
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
 		selectionPanel.add(new JLabel("Course:"));
+		
 		courseComboBox = new JComboBox<>();
-		selectionPanel.add(courseComboBox);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		selectionPanel.add(courseComboBox, gbc);
 		
-		selectionPanel.add(new JLabel("Topic:"));
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		selectionPanel.add(new JLabel("Topic:"), gbc);
+		
 		topicComboBox = new JComboBox<>();
-		selectionPanel.add(topicComboBox);
-		
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		selectionPanel.add(topicComboBox, gbc);
+
 		add(selectionPanel, BorderLayout.NORTH);
 		
 		materialListModel = new DefaultListModel<>();
@@ -33,6 +46,8 @@ public class StudentCourseMaterialPanel extends JPanel{
 		add(new JScrollPane(materialList), BorderLayout.CENTER);
 		
 		JButton viewButton = new JButton("View Material");
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(viewButton);
 		add(viewButton, BorderLayout.SOUTH);
 		
 		courseComboBox.addActionListener(new ActionListener() {
