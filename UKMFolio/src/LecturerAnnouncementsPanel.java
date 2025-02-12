@@ -1,26 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LecturerAnnouncementsPanel extends JPanel {
     private DefaultListModel<String> announcementsListModel;
     private JList<String> announcementsList;
-    private StudentAnnouncementsPanel studentPanel; 
 
-    public LecturerAnnouncementsPanel(StudentAnnouncementsPanel studentPanel) {
-        this.studentPanel = studentPanel;
+    public LecturerAnnouncementsPanel() {
         setLayout(new BorderLayout());
 
         announcementsListModel = new DefaultListModel<>();
         announcementsList = new JList<>(announcementsListModel);
         announcementsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        for (String announcement : AnnouncementsManager.getInstance().getAnnouncements()) {
-            announcementsListModel.addElement(announcement);
-        }
+        refreshList();
 
         JScrollPane listScrollPane = new JScrollPane(announcementsList);
         add(listScrollPane, BorderLayout.CENTER);
@@ -80,13 +75,13 @@ public class LecturerAnnouncementsPanel extends JPanel {
 
                 if (editIndex == null) {
                     AnnouncementsManager.getInstance().addAnnouncement(announcementHTML);
-                    announcementsListModel.addElement(announcementHTML);
                 } else {
                     AnnouncementsManager.getInstance().updateAnnouncement(editIndex, announcementHTML);
-                    announcementsListModel.set(editIndex, announcementHTML);
                 }
 
-                studentPanel.refreshAnnouncements();
+                refreshList();
+                StudentAnnouncementsPanel.refreshAll();
+
                 dialog.dispose();
             } else {
                 JOptionPane.showMessageDialog(dialog, "Title and Text cannot be empty.");
@@ -99,6 +94,13 @@ public class LecturerAnnouncementsPanel extends JPanel {
 
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
+    }
+
+    private void refreshList() {
+        announcementsListModel.clear();
+        for (String announcement : AnnouncementsManager.getInstance().getAnnouncements()) {
+            announcementsListModel.addElement(announcement);
+        }
     }
 
     private String extractTitle(String html) {
