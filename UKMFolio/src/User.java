@@ -32,11 +32,20 @@ public class User {
 	 }
 	 
 	 public static User getUserByUsername(String username) {
-	        for (User user : users) {
-	            if (user.getUsername().equalsIgnoreCase(username)) {
-	                return user;
-	            }
-	        }
-	        return null; // Return null if the user is not found
-	    }
+		 for (User user : users) {
+			 if (user.getUsername().equalsIgnoreCase(username)) {
+				 return user;
+			 }
+		 }
+		 return null; // Return null if the user is not found
+	 }
+	 private static User currentUser;
+
+	 public static User getCurrentUser() {
+	     return currentUser;
+	 }
+
+	 public static void setCurrentUser(User user) {
+	     currentUser = user;
+	 }
 }
