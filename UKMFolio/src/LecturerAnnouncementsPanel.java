@@ -80,7 +80,7 @@ public class LecturerAnnouncementsPanel extends JPanel {
                 }
 
                 refreshList();
-                StudentAnnouncementsPanel.refreshAll();
+                StudentAnnouncementsPanel.refreshAll();  // <== This line updates all student panels
 
                 dialog.dispose();
             } else {
