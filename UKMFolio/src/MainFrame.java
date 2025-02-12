@@ -10,9 +10,12 @@ public class MainFrame {
 	private UserRegistration userRegistration;
 	private String loggedInUsername;
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public MainFrame() {
-		frame = new JFrame("UKM Folio");
-		frame.setSize(400,219);
+		frame = new JFrame("UKMFolio");
+		frame.setSize(615,380);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		cardLayout = new CardLayout();
@@ -22,12 +25,13 @@ public class MainFrame {
 		userRegistration = new UserRegistration(this);
 		
 		cardPanel.add(loginPage, "Login");
+		loginPage.setLayout(null);
 		cardPanel.add(userRegistration, "Register");
 
 		
 		cardLayout.show(cardPanel, "Login");
 		
-		frame.add(cardPanel);
+		frame.getContentPane().add(cardPanel);
 		frame.setVisible(true);
 		}
 	
@@ -51,7 +55,7 @@ public class MainFrame {
         cardPanel.add(rolePanel, role);
         cardLayout.show(cardPanel, role);
     }
-	
+
 	public void setLoggedInUsername(String username) {
 	    this.loggedInUsername = username;
 	}
@@ -60,7 +64,6 @@ public class MainFrame {
 	    return loggedInUsername;
 	}
 
-		
 	public static void main(String[] args) {
 	        SwingUtilities.invokeLater(MainFrame::new); // Initialize MainFrame
 	}
