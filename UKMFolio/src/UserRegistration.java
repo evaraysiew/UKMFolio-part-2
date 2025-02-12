@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java. awt.event.*;
+import java.util.*;
 
 public class UserRegistration extends JPanel{
 	// GUI components
@@ -10,27 +12,37 @@ public class UserRegistration extends JPanel{
 	
 	public UserRegistration(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
-		
-		//set frame
-		setLayout(new GridLayout(4,2));
+		setLayout(null);
 		
 		//User name
-		add(new JLabel("Username: "));
+		JLabel label = new JLabel("Username: ");
+		label.setBounds(91, 39, 99, 39);
+		add(label);
 		usernameField = new JTextField();
+		usernameField.setBounds(160, 48, 348, 20);
 		add(usernameField);
 		
 		//password
-		add(new JLabel("Password: "));
+		JLabel label_1 = new JLabel("Password: ");
+		label_1.setBounds(91, 79, 99, 39);
+		add(label_1);
 		passwordField = new JPasswordField();
+		passwordField.setBounds(160, 88, 348, 20);
 		add(passwordField);
 		
 		//Role
-		add(new JLabel("Role:"));
-		roleBox = new JComboBox<>(new String[] {"Student", "Lecturer"});
+		JLabel label_2 = new JLabel("Role:");
+		label_2.setBounds(91, 119, 99, 39);
+		add(label_2);
+		roleBox = new JComboBox(); // Non-generic JComboBox
+		roleBox.setBounds(160, 128, 348, 20);
+		roleBox.addItem("Student");
+		roleBox.addItem("Lecturer");		
 		add(roleBox);
 		
 		//register
 		JButton registerButton = new JButton("Register");
+		registerButton.setBounds(183, 182, 225, 39);
 		add(registerButton);
 		
 		//event listener for register
