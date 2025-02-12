@@ -1,13 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentAnnouncementsPanel extends JPanel {
+    private static final List<StudentAnnouncementsPanel> instances = new ArrayList<>();
     private DefaultListModel<String> announcementsListModel;
     private JList<String> announcementsList;
     private JTextPane announcementDetails;
 
     public StudentAnnouncementsPanel() {
         setLayout(new BorderLayout());
+        instances.add(this);  // Register this instance
 
         announcementsListModel = new DefaultListModel<>();
         announcementsList = new JList<>(announcementsListModel);
@@ -34,11 +38,17 @@ public class StudentAnnouncementsPanel extends JPanel {
         }
     }
 
-    // Refresh the UI with the latest announcements
     public void refreshAnnouncements() {
         announcementsListModel.clear();
         for (String announcement : AnnouncementsManager.getInstance().getAnnouncements()) {
             announcementsListModel.addElement(announcement);
+        }
+    }
+
+    // Static method to refresh all student panels when the lecturer adds/edits an announcement
+    public static void refreshAll() {
+        for (StudentAnnouncementsPanel panel : instances) {
+            panel.refreshAnnouncements();
         }
     }
 }
