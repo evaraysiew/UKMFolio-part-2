@@ -8,38 +8,44 @@ public class LoginPage extends JPanel {
 	private JPasswordField passwordField;
 	private MainFrame mainFrame;
 	
-	/***@wbp.parser.entryPoint*/
 	public LoginPage(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
+		setLayout(null);
 		
-        setLayout(new GridLayout(3, 2));
-        
         JLabel userLabel = new JLabel("Username: ");
-        userLabel.setBounds(21, 29, 95,20);
+        userLabel.setBounds(129, 60, 95,20);
         add(userLabel);
         usernameField = new JTextField();
-        usernameField.setBounds(88,29,288,20);
+        usernameField.setBounds(196,60,321,20);
         add(usernameField);
         
         JLabel passLabel = new JLabel("Password: ");
-        passLabel.setBounds(21,60,69,20);
+        passLabel.setBounds(129,103,69,20);
         add(passLabel);
         passwordField = new JPasswordField();
-        passwordField.setBounds(88,60,288,20);
+        passwordField.setBounds(196,103,321,20);
         add(passwordField);
         
         JButton loginButton = new JButton("Log In");
-        loginButton.setBounds(98,91,193,33);
+        loginButton.setBounds(223,158,193,33);
         JButton registerButton = new JButton("Register New User");
-        registerButton.setBounds(98,136,193,33);
+        registerButton.setBounds(223,203,193,33);
         
         add(registerButton);
         add(loginButton);
+        
+        JLabel lblTitle = new JLabel("LOG IN");
+        lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblTitle.setEnabled(false);
+        lblTitle.setBounds(278, 24, 80, 14);
+        add(lblTitle);
         
         registerButton.addActionListener(e -> mainFrame.showRegistration());
         
         loginButton.addActionListener(e -> loginUser());
         
+        setVisible(true);
 	}
 	
 	private void loginUser() {
@@ -50,6 +56,7 @@ public class LoginPage extends JPanel {
 			if(user!= null) {
 				if (user.getPassword().equals(password)) {
 					JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					User.setCurrentUser(user);
 					if (user.getRole().equals("Student")) {
 						mainFrame.setLoggedInUsername(username);
 						mainFrame.showDashboard("Student");
