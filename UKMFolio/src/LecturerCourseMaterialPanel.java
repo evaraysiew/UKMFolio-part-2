@@ -18,18 +18,33 @@ public class LecturerCourseMaterialPanel extends JPanel{
 	public LecturerCourseMaterialPanel() {
 		setLayout(new BorderLayout(10, 10));
 		
-		JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+		JPanel inputPanel = new JPanel(new GridBagLayout());
 		inputPanel.setBorder(BorderFactory.createTitledBorder("Upload Course Material"));
-		inputPanel.add(new JLabel("Course Name:"));
-		courseNameField = new JTextField();
-		inputPanel.add(courseNameField);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		inputPanel.add(new JLabel("Course Name:"), gbc);
 		
-		inputPanel.add(new JLabel("Topic:"));
+		courseNameField = new JTextField();
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		inputPanel.add(courseNameField, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		inputPanel.add(new JLabel("Topic:"), gbc);
+		
 		topicField = new JTextField();
-		inputPanel.add(topicField);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		inputPanel.add(topicField, gbc);
 		
 		addMaterialButton = new JButton("Add Material");
-		inputPanel.add(addMaterialButton);
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		inputPanel.add(addMaterialButton, gbc);
 		
 		add(inputPanel, BorderLayout.NORTH);
 		
@@ -40,6 +55,8 @@ public class LecturerCourseMaterialPanel extends JPanel{
 		add(new JScrollPane(materialList), BorderLayout.CENTER);
 		
 		uploadButton = new JButton("Upload Materials");
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(uploadButton);
 		add(uploadButton, BorderLayout.SOUTH);
 		
 		addMaterialButton.addActionListener(new ActionListener() {
